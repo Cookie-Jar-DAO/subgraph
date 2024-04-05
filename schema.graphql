@@ -27,7 +27,7 @@ type CookieJar @entity {
 }
 
 # GiveCookie (on making claim)
-type Claim {
+type Claim @entity {
   id: Bytes!
   claimer: Bytes! # address
   receiver: Bytes! # address
@@ -37,7 +37,7 @@ type Claim {
   timestamp: BigInt!
 }
 
-type Reason {
+type Reason @entity {
   id: Bytes!
   tag: String!
   reason: String!
@@ -46,9 +46,9 @@ type Reason {
 
 #  need assess reason ?
 
-type ReasonAssessment {
+type ReasonAssessment @entity {
   id: Bytes!
   claim: Claim!
   assessor: Bytes!
-  assessment: Bool!
+  assessment: Boolean!
 }

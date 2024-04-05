@@ -1,6 +1,4 @@
 specVersion: 1.0.0
-indexerHints:
-  prune: auto
 schema:
   file: ./schema.graphql
 dataSources:
@@ -30,3 +28,30 @@ dataSources:
         - event: SummonCookieJar(address,bytes,string,string)
           handler: handleSummonCookieJar
       file: ./src/cookie-jar-factory.ts
+  - kind: ethereum
+    name: ZodiacBaalCookieJar
+    network: sepolia
+    source:
+      address: "0xE07651A14C7A852D18bfcFab26A84080a0030bcC"
+      abi: ZodiacBaalCookieJar
+      startBlock: 5173582
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - DonationReceived
+        - OwnershipTransferred
+        - SummonCookieJar
+      abis:
+        - name: ZodiacBaalCookieJar
+          file: ./abis/ZodiacBaalCookieJar.json
+      eventHandlers:
+        - event: Setup(bytes)
+          handler: handleSetup
+        - event: GiveCookie(indexed bytes32,indexed address,uint256,string)
+          handler: handleGiveCookie
+        - event: AssessReason(indexed bytes32,string,bool)
+          handler: handleAssessReason
+      file: ./src/cookieJar.ts
+
