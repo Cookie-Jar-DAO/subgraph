@@ -1,55 +1,59 @@
-import { BigInt } from "@graphprotocol/graph-ts"
+import { JSONValueKind, json } from "@graphprotocol/graph-ts";
 import {
-  CookieJarFactory,
   DonationReceived,
   OwnershipTransferred,
-  SummonCookieJar
-} from "../generated/CookieJarFactory/CookieJarFactory"
-import { ExampleEntity } from "../generated/schema"
+  SummonCookieJar,
+} from "../generated/CookieJarFactory/CookieJarFactory";
+import { CookieJar } from "../generated/schema";
+import { loadOrCreateCookieJar } from "./utils/cookieUtils";
+import { log } from "matchstick-as";
+
+export function handleSummonCookieJar(event: SummonCookieJar): void {
+  log.info("summoned Cookie Jar: {}", [event.params.cookieJar.toHexString()]);
+
+  let jar = loadOrCreateCookieJar(event.params.cookieJar);
+  let details = json.fromString(event.params.details);
+
+  if (details.kind == JSONValueKind.OBJECT) {
+    let obj = details.toObject();
+    let typeVal = obj.get("type");
+    let nameVal = obj.get("name");
+    let descriptionVal = obj.get("description");
+    let linkVal = obj.get("link");
+
+    if (typeVal && typeVal.kind == JSONValueKind.STRING) {
+      jar.type = typeVal.toString();
+      log.info("typez {}", [jar.type])
+    }
+    if (nameVal && nameVal.kind == JSONValueKind.STRING) {
+      jar.name = nameVal.toString();
+    }
+    if (descriptionVal && descriptionVal.kind == JSONValueKind.STRING) {
+      jar.description = descriptionVal.toString();
+    }
+    if (linkVal && linkVal.kind == JSONValueKind.STRING) {
+      jar.link = linkVal.toString();
+    }
+  }
+  jar.owner = event.transaction.from;
+
+  jar.save();
+
+ ;
+}
 
 export function handleDonationReceived(event: DonationReceived): void {
   // Entities can be loaded from the store using a string ID; this ID
   // needs to be unique across all entities of the same type
-  let entity = ExampleEntity.load(event.transaction.from)
+  let cookieJar = CookieJar.load(event.transaction.from);
 
   // Entities only exist after they have been saved to the store;
   // `null` checks allow to create entities on demand
-  if (!entity) {
-    entity = new ExampleEntity(event.transaction.from)
-
-    // Entity fields can be set using simple assignments
-    entity.count = BigInt.fromI32(0)
+  if (!cookieJar) {
+    cookieJar = new CookieJar(event.transaction.from);
   }
 
-  // BigInt and BigDecimal math are supported
-  entity.count = entity.count + BigInt.fromI32(1)
-
-  // Entity fields can be set based on event parameters
-  entity.donationToken = event.params.donationToken
-  entity.donationAmount = event.params.donationAmount
-
-  // Entities can be written to the store with `.save()`
-  entity.save()
-
-  // Note: If a handler doesn't require existing field values, it is faster
-  // _not_ to load the entity from the store. Instead, create it fresh with
-  // `new Entity(...)`, set the fields that should be updated and save the
-  // entity back to the store. Fields that were not set or unset remain
-  // unchanged, allowing for partial updates to be applied.
-
-  // It is also possible to access smart contracts from mappings. For
-  // example, the contract that has emitted the event can be connected to
-  // with:
-  //
-  // let contract = Contract.bind(event.address)
-  //
-  // The following functions can then be called on this contract to access
-  // state variables and other data:
-  //
-  // - contract.SUSTAINABILITY_ADDR(...)
-  // - contract.owner(...)
+  cookieJar.save();
 }
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {}
-
-export function handleSummonCookieJar(event: SummonCookieJar): void {}

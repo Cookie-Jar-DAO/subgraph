@@ -5,11 +5,16 @@
 #  matchstick tests- no
 
 enum CookieJarType {
-  BAAL
-  ERC20
-  ERC721
-  ALLOWLIST
-  OPEN
+  ERC20CookieJar6551
+  ERC721CookieJar6551
+  BaalCookieJar6551
+  ListCookieJar6551
+  OpenCookieJar6551
+  ZodiacERC20CookieJar
+  ZodiacERC721CookieJar
+  ZodiacBaalCookieJar
+  ZodiacListCookieJar
+  ZodiacOpenCookieJar
 }
 
 # SummonCookieJar (factory) + Setup (cookie jar)
@@ -17,8 +22,9 @@ enum CookieJarType {
 type CookieJar @entity {
   id: Bytes! # address
   name: String!
-  type: CookieJarType!
-  description: String! # event.params.details
+  # type: CookieJarType!
+  type: String!
+  description: String! 
   link: String!
   cookieToken: Bytes!
   cookieAmount: BigInt! # fixed amount

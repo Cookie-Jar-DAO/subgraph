@@ -40,18 +40,244 @@ dataSources:
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - DonationReceived
-        - OwnershipTransferred
-        - SummonCookieJar
+        - CookieJar
+        - Claim
       abis:
         - name: ZodiacBaalCookieJar
           file: ./abis/ZodiacBaalCookieJar.json
       eventHandlers:
         - event: Setup(bytes)
           handler: handleSetup
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/cookieJar.ts
+  - kind: ethereum
+    name: ZodiacERC20CookieJar
+    network: sepolia
+    source:
+      address: "0x01e1bcED65D54F206ee9D609c6B769D71AA36aEF"
+      abi: ZodiacERC20CookieJar
+      startBlock: 5173582
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - CookieJar
+        - Claim
+      abis:
+        - name: ZodiacERC20CookieJar
+          file: ./abis/ZodiacERC20CookieJar.json
+      eventHandlers:
+        - event: Setup(bytes)
+          handler: handleSetup
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/cookieJar.ts
+  - kind: ethereum
+    name: ZodiacERC721CookieJar
+    network: sepolia
+    source:
+      address: "0xC60d3A15Ac671A9c3aFa945e4c78896529db4dFA"
+      abi: ZodiacERC721CookieJar
+      startBlock: 5173582
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - CookieJar
+        - Claim
+      abis:
+        - name: ZodiacERC721CookieJar
+          file: ./abis/ZodiacERC721CookieJar.json
+      eventHandlers:
+        - event: Setup(bytes)
+          handler: handleSetup
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/cookieJar.ts
+  - kind: ethereum
+    name: ZodiacListCookieJar
+    network: sepolia
+    source:
+      address: "0x2b2D9eaC07588100eF53B4BE68aF9407F5aB7628"
+      abi: ZodiacListCookieJar
+      startBlock: 5173582
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - CookieJar
+        - Claim
+      abis:
+        - name: ZodiacListCookieJar
+          file: ./abis/ZodiacListCookieJar.json
+      eventHandlers:
+        - event: Setup(bytes)
+          handler: handleSetup
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/cookieJar.ts
+  - kind: ethereum
+    name: ZodiacOpenCookieJar
+    network: sepolia
+    source:
+      address: "0x0Ea985BdC6CF0aBC8813a9e346f4Ef8E0bdf1861"
+      abi: ZodiacOpenCookieJar
+      startBlock: 5173582
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - CookieJar
+        - Claim
+      abis:
+        - name: ZodiacOpenCookieJar
+          file: ./abis/ZodiacOpenCookieJar.json
+      eventHandlers:
+        - event: Setup(bytes)
+          handler: handleSetup
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/cookieJar.ts
+  - kind: ethereum
+    name: BaalCookieJar6551
+    network: sepolia
+    source:
+      address: "0xF615299B76297Fd43e07BF0Cdd1D12BD48448546"
+      abi: BaalCookieJar6551
+      startBlock: 5173582
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - CookieJar
+        - Claim
+      abis:
+        - name: BaalCookieJar6551
+          file: ./abis/BaalCookieJar6551.json
+      eventHandlers:
+        - event: Setup(bytes)
+          handler: handleSetup
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/cookieJar.ts
+  - kind: ethereum
+    name: ERC20CookieJar6551
+    network: sepolia
+    source:
+      address: "0x6CF9029A725D888Dea4B258586c35886A35b7750"
+      abi: ERC20CookieJar6551
+      startBlock: 5173582
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - CookieJar
+        - Claim
+      abis:
+        - name: ERC20CookieJar6551
+          file: ./abis/ERC20CookieJar6551.json
+      eventHandlers:
+        - event: Setup(bytes)
+          handler: handleSetup
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/cookieJar.ts
+  - kind: ethereum
+    name: ERC721CookieJar6551
+    network: sepolia
+    source:
+      address: "0xFd78d95f274d79037Ea08a13a22005E2E1772204"
+      abi: ERC721CookieJar6551
+      startBlock: 5173582
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - CookieJar
+        - Claim
+      abis:
+        - name: ERC721CookieJar6551
+          file: ./abis/ERC721CookieJar6551.json
+      eventHandlers:
+        - event: Setup(bytes)
+          handler: handleSetup
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/cookieJar.ts
+  - kind: ethereum
+    name: ListCookieJar6551
+    network: sepolia
+    source:
+      address: "0x75269cD2926887c5158Ee6385Aee00d0F83C7296"
+      abi: ListCookieJar6551
+      startBlock: 5173582
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - CookieJar
+        - Claim
+      abis:
+        - name: ListCookieJar6551
+          file: ./abis/ListCookieJar6551.json
+      eventHandlers:
+        - event: Setup(bytes)
+          handler: handleSetup
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/cookieJar.ts
+  - kind: ethereum
+    name: OpenCookieJar6551
+    network: sepolia
+    source:
+      address: "0x51f30901059ddc2DA6ddcA9eD2D6377C8592242F"
+      abi: OpenCookieJar6551
+      startBlock: 5173582
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - CookieJar
+      abis:
+        - name: OpenCookieJar6551
+          file: ./abis/OpenCookieJar6551.json
+      eventHandlers:
+        - event: Setup(bytes)
+          handler: handleSetup
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/cookieJar.ts
+templates:
+  - kind: ethereum/contract
+    name: CookieJar
+    network: sepolia
+    source:
+      abi: CookieJar
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - CookieJar
+        - Claim
+        - Reason
+        - ReasonAssessment
+      abis:
+        - name: CookieJar
+          file: ./abis/CookieJar.json
+      eventHandlers:
         - event: GiveCookie(indexed bytes32,indexed address,uint256,string)
           handler: handleGiveCookie
         - event: AssessReason(indexed bytes32,string,bool)
           handler: handleAssessReason
       file: ./src/cookieJar.ts
-
