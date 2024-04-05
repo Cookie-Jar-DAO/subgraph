@@ -1,6 +1,54 @@
-type ExampleEntity @entity {
+# events
+
+# AssessReason
+# any mainnet deployments yet or only sepolia
+#  matchstick tests- no
+
+enum CookieJarType {
+  BAAL
+  ERC20
+  ERC721
+  ALLOWLIST
+  OPEN
+}
+
+# SummonCookieJar (factory) + Setup (cookie jar)
+# DonationReceived
+type CookieJar @entity {
+  id: Bytes! # address
+  name: String!
+  type: CookieJarType!
+  description: String! # event.params.details
+  link: String!
+  cookieToken: Bytes!
+  cookieAmount: BigInt! # fixed amount
+  cookieCoolOffPeriod: BigInt! # time limit for claiming a cookie
+  owner: Bytes! # address
+}
+
+# GiveCookie (on making claim)
+type Claim {
   id: Bytes!
-  count: BigInt!
-  donationToken: Bytes! # address
-  donationAmount: BigInt! # uint256
+  claimer: Bytes! # address
+  receiver: Bytes! # address
+  reason: Reason! # or bytes?
+  jar: CookieJar!
+  amount: BigInt!
+  timestamp: BigInt!
+}
+
+type Reason {
+  id: Bytes!
+  tag: String!
+  reason: String!
+  link: String!
+}
+
+#  need assess reason ?
+
+type ReasonAssessment {
+  id: Bytes!
+  claim: Claim!
+  assessor: Bytes!
+  assessment: Bool!
 }
