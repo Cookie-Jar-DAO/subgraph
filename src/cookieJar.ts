@@ -3,7 +3,12 @@ import {
   GiveCookie,
   Setup,
 } from "../generated/templates/CookieJarTemplate/CookieJar";
-import { JSONValueKind, ethereum, json, log } from "@graphprotocol/graph-ts";
+import {
+  JSONValueKind,
+  ethereum,
+  json,
+  log,
+} from "@graphprotocol/graph-ts";
 import { OwnershipTransferred } from "../generated/CookieJarFactory/CookieJarFactory";
 import {
   loadOrCreateAssessment,
@@ -48,11 +53,12 @@ export function handleSetup(event: Setup): void {
   jar.save();
 }
 
-export function handleClaim(event: GiveCookie): void {
-  log.info("handleClaim fired: {}", [event.transaction.hash.toHexString()]);
-  let claimId = `${
-    event.address
-  }-${event.params.cookieMonster.toHexString()}-${event.params.cookieUid.toHexString()}`;
+export function handleGiveCookie(event: GiveCookie): void {
+  log.info("handleGiveCookie fired: {}", [
+    event.transaction.hash.toHexString(),
+  ]);
+
+  let claimId = `${event.address.toHexString()}-${event.params.cookieMonster.toHexString()}-${event.params.cookieUid.toHexString()}`;
 
   let claim = loadOrCreateClaim(claimId);
 
@@ -63,12 +69,13 @@ export function handleClaim(event: GiveCookie): void {
   claim.amount = event.params.amount;
   claim.timestamp = event.block.timestamp;
 
-  let reason = loadOrCreateReason(event.params.cookieUid.toHexString());
+  let reason = loadOrCreateReason(event.params.cookieUid);
+  log.info("Reason ID: {}", [event.params.reason]);
+  let reasonObj = json.try_fromString(event.params.reason);
 
-  let reasonObj = json.fromString(event.params.reason);
-
-  if (reasonObj.kind == JSONValueKind.OBJECT) {
-    let obj = reasonObj.toObject();
+  if (reasonObj.isOk && reasonObj.value.kind === JSONValueKind.OBJECT) {
+    log.info("Reason object is valid", []);
+    let obj = reasonObj.value.toObject();
     let tagVal = obj.get("tag");
     let reasonVal = obj.get("reason");
     let linkVal = obj.get("link");
@@ -84,7 +91,10 @@ export function handleClaim(event: GiveCookie): void {
     }
   }
 
+  claim.reason = reason.id;
+
   reason.save();
+
   claim.save();
 }
 
@@ -93,15 +103,13 @@ export function handleAssessReason(event: AssessReason): void {
     event.transaction.hash.toHexString(),
   ]);
 
-  let reason = loadOrCreateReason(event.params.cookieUid.toHexString());
-
   let assessment = loadOrCreateAssessment(event.params.cookieUid.toHexString());
 
   assessment.claim = event.params.cookieUid;
   assessment.assessor = event.transaction.from;
   assessment.assessment = event.params.isGood;
 
-  reason.save();
+  assessment.save();
 }
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {

@@ -46,8 +46,8 @@ export function loadOrCreateClaim(claimId: string): Claim {
   return claim as Claim;
 }
 
-export function loadOrCreateReason(reasonId: string): Reason {
-  let id = Bytes.fromHexString(reasonId);
+export function loadOrCreateReason(id: Bytes): Reason {
+
   let reason = Reason.load(id);
 
   if (reason == null) {
