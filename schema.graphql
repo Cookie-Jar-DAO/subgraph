@@ -24,17 +24,18 @@ type CookieJar @entity {
   name: String!
   # type: CookieJarType!
   type: String!
-  description: String! 
+  description: String!
   link: String!
   cookieToken: Bytes!
   cookieAmount: BigInt! # fixed amount
-  cookieCoolOffPeriod: BigInt! # time limit for claiming a cookie
+  periodLength: BigInt! # time limit for claiming a cookie
   owner: Bytes! # address
 }
 
 # GiveCookie (on making claim)
 type Claim @entity {
   id: Bytes!
+  uuid: String!
   claimer: Bytes! # address
   receiver: Bytes! # address
   reason: Reason! # or bytes?
@@ -49,8 +50,6 @@ type Reason @entity {
   reason: String!
   link: String!
 }
-
-#  need assess reason ?
 
 type ReasonAssessment @entity {
   id: Bytes!

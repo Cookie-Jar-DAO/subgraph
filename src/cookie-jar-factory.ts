@@ -7,9 +7,10 @@ import {
 import { CookieJar } from "../generated/schema";
 import { loadOrCreateCookieJar } from "./utils/cookieUtils";
 import { log } from "matchstick-as";
+import { CookieJarTemplate } from "../generated/templates";
 
 export function handleSummonCookieJar(event: SummonCookieJar): void {
-  log.info("summoned Cookie Jar: {}", [event.params.cookieJar.toHexString()]);
+  log.info("summoned Cookie Jar: {} {}", [event.params.cookieJar.toHexString(), event.address.toHexString()]);
 
   let jar = loadOrCreateCookieJar(event.params.cookieJar);
   let details = json.fromString(event.params.details);
@@ -23,7 +24,6 @@ export function handleSummonCookieJar(event: SummonCookieJar): void {
 
     if (typeVal && typeVal.kind == JSONValueKind.STRING) {
       jar.type = typeVal.toString();
-      log.info("typez {}", [jar.type])
     }
     if (nameVal && nameVal.kind == JSONValueKind.STRING) {
       jar.name = nameVal.toString();
@@ -39,7 +39,8 @@ export function handleSummonCookieJar(event: SummonCookieJar): void {
 
   jar.save();
 
- ;
+  CookieJarTemplate.create(event.params.cookieJar);
+  log.info("template created: {}", [event.params.cookieJar.toHexString()]);
 }
 
 export function handleDonationReceived(event: DonationReceived): void {
