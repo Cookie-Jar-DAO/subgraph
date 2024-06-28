@@ -30,6 +30,7 @@ type CookieJar @entity {
   cookieAmount: BigInt! # fixed amount
   periodLength: BigInt! # time limit for claiming a cookie
   owner: Bytes! # address
+  target: Bytes!
 }
 
 # GiveCookie (on making claim)

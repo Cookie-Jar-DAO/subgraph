@@ -21,6 +21,7 @@ export function loadOrCreateCookieJar(cookieId: Address): CookieJar {
     jar.cookieToken = Address.fromString(ZERO_ADDRESS);
     jar.periodLength = BigInt.fromI32(0);
     jar.owner = Address.fromString(ZERO_ADDRESS);
+    jar.target = Address.fromString(ZERO_ADDRESS);
     jar.save();
   }
 

@@ -2,13 +2,9 @@ import {
   AssessReason,
   GiveCookie,
   Setup,
+  CookieJar,
 } from "../generated/templates/CookieJarTemplate/CookieJar";
-import {
-  JSONValueKind,
-  ethereum,
-  json,
-  log,
-} from "@graphprotocol/graph-ts";
+import { JSONValueKind, ethereum, json, log } from "@graphprotocol/graph-ts";
 import { OwnershipTransferred } from "../generated/CookieJarFactory/CookieJarFactory";
 import {
   loadOrCreateAssessment,
@@ -50,6 +46,12 @@ export function handleSetup(event: Setup): void {
     log.info("cookieToken {}", [cookieToken.toAddress().toHexString()]);
   }
 
+  let jarContract = CookieJar.bind(event.address);
+  let target = jarContract.try_target();
+
+  if (!target.reverted) {
+    jar.target = target.value;
+  }
   jar.save();
 }
 
