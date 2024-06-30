@@ -6,7 +6,7 @@ dataSources:
     name: CookieJarFactory
     network: sepolia
     source:
-      address: "0x00000000000dc7f163742eb4abef650037b1f588"
+      address: "0x10864d3b5552735fd8b1ddd6d5bddcf437e26ae9"
       abi: CookieJarFactory
       startBlock: 6038640
     # network: optimism
