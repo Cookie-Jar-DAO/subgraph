@@ -9,7 +9,7 @@
     "remove-local": "graph remove --node http://localhost:8020/ bitbeckers/cookie-graph-sepolia",
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 bitbeckers/cookie-graph-sepolia",
     "test": "graph test",
-    "deploy-test": "yarn codegen && yarn build && graph deploy --product hosted-service psparacino/cookie-jar-testing"
+    "deploy-test": "yarn codegen && yarn build && graph deploy --studio cookie-jar-testing"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.67.3",
