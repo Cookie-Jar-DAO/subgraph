@@ -6,14 +6,14 @@ dataSources:
     name: CookieJarFactory
     network: sepolia
     source:
-      address: "0x00000000000dc7f163742eb4abef650037b1f588"
+      address: "0x4c941cafac0b6d67a6c4ee5399927aa889aab780"
       abi: CookieJarFactory
-      startBlock: 6192940
+      startBlock: 6237617
     # network: optimism
     # source:
-    #   address: "0x00000000000dc7f163742eb4abef650037b1f588"
+    #   address: "0x4c941cafac0b6d67a6c4ee5399927aa889aab780"
     #   abi: CookieJarFactory
-    #   startBlock: 121834760
+    #   startBlock: 122204589
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -30,13 +30,14 @@ dataSources:
           handler: handleDonationReceived
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
-        - event: SummonCookieJar(address,bytes,string,string)
+        - event: SummonCookieJar(address,bytes,string)
           handler: handleSummonCookieJar
       file: ./src/cookie-jar-factory.ts
 templates:
   - kind: ethereum/contract
     name: CookieJarTemplate
     network: sepolia
+    # network: optimism
     source:
       abi: CookieJar
     mapping:

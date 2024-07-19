@@ -1,5 +1,18 @@
 [
-  { "inputs": [], "stateMutability": "nonpayable", "type": "constructor" },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "newOwner", "type": "address" }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [
+      { "internalType": "string", "name": "message", "type": "string" }
+    ],
+    "name": "CALL_FAILED",
+    "type": "error"
+  },
   {
     "anonymous": false,
     "inputs": [
@@ -17,6 +30,19 @@
       }
     ],
     "name": "DonationReceived",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "moduleProxyFactory",
+        "type": "address"
+      }
+    ],
+    "name": "ModuleProxyFactorySet",
     "type": "event"
   },
   {
@@ -57,12 +83,6 @@
         "indexed": false,
         "internalType": "string",
         "name": "details",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "uid",
         "type": "string"
       }
     ],
