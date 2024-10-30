@@ -31,6 +31,7 @@ type CookieJar @entity {
   periodLength: BigInt! # time limit for claiming a cookie
   owner: Bytes! # address
   target: Bytes!
+  claims: [Claim!]! @derivedFrom(field: "jar")
 }
 
 # GiveCookie (on making claim)
