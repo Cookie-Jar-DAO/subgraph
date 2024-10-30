@@ -1,8 +1,32 @@
 {
   "sepolia": {
     "CookieJarFactory": {
-      "address": "0x10864D3b5552735fD8B1Ddd6d5BddcF437e26Ae9",
-      "startBlock": 5173582
+      "address": "0x4c941CAfAc0B6D67a6c4eE5399927AA889aAb780",
+      "startBlock": 6237617
+    }
+  },
+  "base": {
+    "CookieJarFactory": {
+      "address": "0x4c941CAfAc0B6D67a6c4eE5399927AA889aAb780",
+      "startBlock": 16611122
+    }
+  },
+  "gnosis": {
+    "CookieJarFactory": {
+      "address": "0x4c941CAfAc0B6D67a6c4eE5399927AA889aAb780",
+      "startBlock": 34777160
+    }
+  },
+  "arbitrum-one": {
+    "CookieJarFactory": {
+      "address": "0x4c941CAfAc0B6D67a6c4eE5399927AA889aAb780",
+      "startBlock": 228335639
+    }
+  },
+  "optimism": {
+    "CookieJarFactory": {
+      "address": "0x4c941CAfAc0B6D67a6c4eE5399927AA889aAb780",
+      "startBlock": 122204589
     }
   }
 }
