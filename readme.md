@@ -9,3 +9,6 @@ base
 arbitrum-one
 gnosis
 optimism
+
+all of the information for each network is contained in the networks.json file
+networks.json is currently set up for cookiejar contracts at address 0x4c941CAfAc0B6D67a6c4eE5399927AA889aAb780 on all chains
