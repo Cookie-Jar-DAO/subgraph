@@ -13,10 +13,12 @@ export function handleSummonCookieJar(event: SummonCookieJar): void {
   log.info("summoned Cookie Jar: {} {}", [event.params.cookieJar.toHexString(), event.address.toHexString()]);
 
   let jar = loadOrCreateCookieJar(event.params.cookieJar);
-  let details = json.fromString(event.params.details);
-
-  if (details.kind == JSONValueKind.OBJECT) {
-    let obj = details.toObject();
+  
+  // Add try/catch for JSON parsing
+  let details = json.try_fromString(event.params.details);
+  
+  if (details.isOk && details.value.kind == JSONValueKind.OBJECT) {
+    let obj = details.value.toObject();
     let typeVal = obj.get("type");
     let nameVal = obj.get("name");
     let descriptionVal = obj.get("description");
@@ -34,9 +36,19 @@ export function handleSummonCookieJar(event: SummonCookieJar): void {
     if (linkVal && linkVal.kind == JSONValueKind.STRING) {
       jar.link = linkVal.toString();
     }
+  } else {
+    log.warning("Failed to parse details JSON for jar {}: {}", [
+      event.params.cookieJar.toHexString(),
+      event.params.details
+    ]);
+    // Set default values
+    jar.type = "unknown";
+    jar.name = "Unnamed Jar";
+    jar.description = "";
+    jar.link = "";
   }
-  jar.owner = event.transaction.from;
 
+  jar.owner = event.transaction.from;
   jar.save();
 
   CookieJarTemplate.create(event.params.cookieJar);

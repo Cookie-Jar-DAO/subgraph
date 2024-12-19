@@ -21,11 +21,11 @@ enum CookieJarType {
 # DonationReceived
 type CookieJar @entity {
   id: Bytes! # address
-  name: String!
+  name: String! # Will be "Unnamed Jar" if parsing fails
   # type: CookieJarType!
-  type: String!
-  description: String!
-  link: String!
+  type: String! # Will be "unknown" if parsing fails
+  description: String! # Will be "" if parsing fails
+  link: String! # Will be "" if parsing fails
   cookieToken: Bytes!
   cookieAmount: BigInt! # fixed amount
   periodLength: BigInt! # time limit for claiming a cookie
